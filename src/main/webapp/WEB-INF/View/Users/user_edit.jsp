@@ -161,14 +161,6 @@
 										placeholder="phone" />
 								</div>
 
-								 <!-- <div class="form-group">
-									<label for="role_id">Role Id:</label> <select id="role"
-										name="role_id" data-toggle="select" class="form-control">
-										<option value="1">Quan Tri He Thong</option>
-										<option value="2">Quan Ly Du An</option>
-										<option value="3">Thanh Vien</option>
-									</select>
-								</div>  -->
 
 								 <div class="form-group ">
 									<label for="roles">Role</label> <select class="custom-select"

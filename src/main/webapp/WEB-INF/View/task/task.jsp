@@ -136,13 +136,14 @@
 					<div class="col-sm-12">
 						<div class="white-box">
 							<div class="table-responsive">
-								<table class="table" id="example">
+								<table class="table" >
 									<thead>
 										<tr>
 											<th>STT</th>
-											<th>Tên Công Việc</th>
-											<th>Dự Án</th>
+											<th>Tên Dự Án</th>
+											
 											<th>Người Thực Hiện</th>
+											<th>Task cần làm</th>
 											<th>Ngày Bắt Đầu</th>
 											<th>Ngày Kết Thúc</th>
 											<th>Trạng Thái</th>
@@ -151,27 +152,29 @@
 									</thead>
 									<tbody>
 
-
 										<c:forEach var="tasks" items="${listTasks}">
 											<tr>
 												<td>${tasks.getId_task()}</td>
-												<td>${tasks.getName_task()}</td>
-												<td>${tasks.getDescription_task()}</td>
+												<c:forEach var="project" items="${listProject}">
+													<c:if test="${tasks.getProject_id() == project.getId()}">
+														<td>${project.getName_project()}</td>
+
+													</c:if>
+												</c:forEach>
 												<c:forEach var="account" items="${listUsers}">
 													<c:if test="${tasks.getAccount_id() == account.getId()}">
 														<td>${account.getFullname()}</td>
-
 													</c:if>
-
 												</c:forEach>
+												<td>${tasks.getName_task()}</td>
 												<td>${tasks.getStartdate()}</td>
 												<td>${tasks.getEnddate()}</td>
 												<td><c:if test="${ tasks.getStatus_id()==1 }">Chưa thực hiện</c:if>
 													<c:if test="${  tasks.getStatus_id()==2 }">Đang thực hiện</c:if>
 													<c:if test="${  tasks.getStatus_id()==3 }">Đã hoàn thành</c:if>
 												</td>
-												<td><a href="#" class="btn btn-sm btn-primary">Sửa</a>
-													<a href="#" class="btn btn-sm btn-danger">Xóa</a> <a
+												<td><a href="http://localhost:8080/CRM/updatetask?id_task=<c:out value='${tasks.id_task}' />"" class="btn btn-sm btn-primary">Sửa</a>
+													<a href="http://localhost:8080/CRM/deleletask?id_task=<c:out value='${tasks.id_task}' />"  " class="btn btn-sm btn-primary">Xóa</a> <a
 													href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
 												</td>
 											</tr>

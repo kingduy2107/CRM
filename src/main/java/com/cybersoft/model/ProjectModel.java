@@ -70,11 +70,10 @@ public class ProjectModel {
 	}
 	
 	
-	public Projectpojo findById(Long id) {
+	public Projectpojo findById(long id) {
 		Projectpojo projectpojo = null;
 		Connection con = MySQLConnection.getConnection();
 		String sql = "select * from project where id = ?";
-
 		try {
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setLong(1, id);

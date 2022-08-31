@@ -40,13 +40,11 @@ public class ProjectController extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/View/Project/project_add.jsp").forward(req, resp);
 			break;
 		case Constant.PROJECTUPDATE:
-			
-			
 			String idStr = req.getParameter("id");
+			System.out.println(idStr);
 			long id = Long.parseLong(idStr);
 			ProjectModel pm = new ProjectModel();
 			Projectpojo project = pm.findById(id);
-			System.out.println(id);
 			req.setAttribute("project", project);
 			req.getRequestDispatcher("/WEB-INF/View/Project/project_edit.jsp").forward(req, resp);
 			break;
@@ -55,7 +53,8 @@ public class ProjectController extends HttpServlet{
 			projectModel.deleteProject(idDelete);
 			resp.sendRedirect(req.getContextPath() + Constant.PROJECT);
 			break;
-		
+		default:
+			break;
 		
 		}
 		

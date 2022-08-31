@@ -128,79 +128,79 @@
 				</div>
 				<!-- /.row -->
 				<!-- .row -->
-					<div class="row">
+				<div class="row">
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
 							<form action="" method="post"
-							class="form-horizontal form-material">
-
-							<div class="form-group ">
-									<label for="project" class="col-sm-12">Project</label>  <select
-										class="form-control form-control-line" id="id" name="project_id"
-										required>
+								class="form-horizontal form-material">
+								<div class="form-group ">
+									<label for="project" class="col-sm-12">Project</label> <select
+										class="form-control form-control-line" id="id"
+										name="project_id" required>
 										<c:forEach var="project" items="${listProject}">
 											<option value="${ project.id }"
-												${ project.id == tasks.project_id ? "selected" : "" }>${ project.name_project }
+												${ project.id == task.project_id ? "selected" : "" }>${ project.name_project }
 											</option>
 										</c:forEach>
-									</select> 
-									
-									
-									
-								</div> 
-								
-							
+									</select>
+								</div>
+
+
 								<div class="form-group">
-									<label class="col-md-12">Tên công việc</label>
+									<label class="col-md-12">Tên Công Việc</label>
 									<div class="col-md-12">
-										<input type="text" placeholder="Tên công việc"
-											class="form-control form-control-line" name= "name_task">
+										<input type="text" name="name_task" placeholder="Tên công việc"
+											value="${ task.name_task }"
+											class="form-control form-control-line">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Ngày bắt đầu</label>
 									<div class="col-md-12">
-										<input type="text" placeholder="yyyy-mm-dd"
-											class="form-control form-control-line" name= "startdate">
+										<input name="startdate" placeholder="yyyy-mm-dd"
+											value="${ task.startdate }"
+											class="form-control form-control-line">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Ngày kết thúc</label>
 									<div class="col-md-12">
-										<input type="text" placeholder="yyyy-mm-dd"
-											class="form-control form-control-line" name= "enddate">
+										<input placeholder="yyyy-mm-dd" name="enddate"
+											value="${ task.enddate }"
+											class="form-control form-control-line">
 									</div>
 								</div>
 
 
 								<div class="form-group ">
 									<label for="project" class="col-sm-12">Người làm</label> <select
-										class="form-control form-control-line" id="id" name="account_id"
-										>
+										class="form-control form-control-line" id="id"
+										name="account_id">
 										<c:forEach var="user" items="${listUsers}">
 											<option value="${ user.id }"
-											${ user.id == tasks.account_id ? "selected" : "" }>${ user.fullname }
+												${ user.id == task.account_id ? "selected" : "" }>${ user.fullname }
 											</option>
 										</c:forEach>
 									</select>
 								</div>
-								
-								 <div class="form-group">
-                                <label>Status</label>
-                                <select class="form-control" name="status_id">
-                                	<option value="1">Chưa thực hiện</option>
-								 	<option value="2">Đang thực hiện</option>
-								 	<option value="3">Đã hoàn thành</option>
-								</select>
-                            </div>
-								
-								
+
+								<div class="form-group">
+									<label>Status</label> <select class="form-control"
+										name="status_id">
+										<option value="1">Chưa thực hiện</option>
+										<option value="2">Đang thực hiện</option>
+										<option value="3">Đã hoàn thành</option>
+									</select>
+								</div>
+
+
 
 								<div class="form-group">
 									<div class="col-sm-12">
 										<button type="submit" class="btn btn-success">Lưu lại</button>
-										<a href="http://localhost:8080/CRM/listtask" class="btn btn-primary">Quay lại</a>
+										<a href="http://localhost:8080/CRM/listtask"
+											class="btn btn-primary">Quay lại</a>
 									</div>
 								</div>
 							</form>

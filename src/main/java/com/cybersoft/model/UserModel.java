@@ -76,7 +76,7 @@ public class UserModel {
 
 	}
 
-	public Userpojo findById(Long id) {
+	public Userpojo findById(long id) {
 		Userpojo userpojo = null;
 		Connection con = MySQLConnection.getConnection();
 		String sql = "select * from account where id = ?";
@@ -130,8 +130,6 @@ public class UserModel {
 		return isSuccess;
 
 	}
-	
-
 
 	public boolean deleteUser(int id) {
 		String sql = "delete from account where id = ?";
@@ -153,6 +151,34 @@ public class UserModel {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public Userpojo checkLogin(String email, String password) {
+		Userpojo userpojo = null;
+		Connection con = MySQLConnection.getConnection();
+		String sql = "select * from account where email = ? and password = ?";
+
+		try {
+			PreparedStatement preparedStatement = con.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+			ResultSet result = preparedStatement.executeQuery();
+			while (result.next()) {
+				userpojo = new Userpojo();
+				userpojo.setId(result.getLong("id"));
+				userpojo.setFullname(result.getString("fullname"));
+				userpojo.setEmail(result.getString("email"));
+				userpojo.setPassword(result.getString("password"));
+				userpojo.setAddress(result.getString("address"));
+				userpojo.setPhone(result.getString("phone"));
+				userpojo.setRole_id(result.getLong("role_id"));
+			}
+			con.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return userpojo;
+
 	}
 
 }

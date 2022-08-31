@@ -5,7 +5,6 @@ import java.sql.Date;
 public class Taskpojo {
 	private long id_task;
 	private String name_task;
-	private String description_task;
 	private String startdate;
 	private String enddate;
 	private long account_id;
@@ -27,16 +26,6 @@ public class Taskpojo {
 	public void setName_task(String name_task) {
 		this.name_task = name_task;
 	}
-
-	public String getDescription_task() {
-		return description_task;
-	}
-
-	public void setDescription_task(String description_task) {
-		this.description_task = description_task;
-	}
-
-	
 
 	public String getStartdate() {
 		return startdate;

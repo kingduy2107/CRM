@@ -1,6 +1,14 @@
 package com.cybersoft.common;
 
 public class Constant {
+	
+	
+
+	public final static String ERROR = "/fail";
+
+
+	public final static String HOME = "/home";
+	
 	public final static String USERLIST = "/listusers";
 	public final static String USERDELETE = "/delete";
 	public final static String USERUPDATE = "/update";
