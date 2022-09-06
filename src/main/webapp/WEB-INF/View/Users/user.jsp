@@ -16,24 +16,30 @@ String contextPath = request.getContextPath();
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" type="image/png" sizes="16x16"
-	href="assets/plugins/images/favicon.png">
+	href="<%=request.getContextPath()%>/assets/plugins/images/favicon.png">
 <title>Pixel Admin</title>
 <!-- Bootstrap Core CSS -->
-<link href="assets/bootstrap/dist/css/bootstrap.min.css"
+<link
+	href="<%=request.getContextPath()%>/assets/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Menu CSS -->
 <link
-	href="assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css"
+	href="<%=request.getContextPath()%>/assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css"
 	rel="stylesheet">
 <link rel="stylesheet"
-	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	href="<%=request.getContextPath()%>/https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <!-- animation CSS -->
-<link href="assets/css/animate.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/assets/css/animate.css"
+	rel="stylesheet">
 <!-- Custom CSS -->
-<link href="assets/css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/assets/css/style.css"
+	rel="stylesheet">
 <!-- color CSS -->
-<link href="assets/css/colors/blue-dark.css" id="theme" rel="stylesheet">
-<link rel="stylesheet" href="assets/./css/custom.css">
+<link
+	href="<%=request.getContextPath()%>/assets/css/colors/blue-dark.css"
+	id="theme" rel="stylesheet">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/./css/custom.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -59,10 +65,10 @@ String contextPath = request.getContextPath();
 					data-target=".navbar-collapse"> <i class="fa fa-bars"></i>
 				</a>
 				<div class="top-left-part">
-					<a class="logo" href="index.html"> <b> <img
-							src="assets/plugins/images/pixeladmin-logo.png" alt="home" />
+					<a class="logo" href="<%=request.getContextPath()%>/home"> <b> <img
+							src="<%=request.getContextPath()%>/assets/plugins/images/pixeladmin-logo.png" alt="home" />
 					</b> <span class="hidden-xs"> <img
-							src="assets/plugins/images/pixeladmin-text.png" alt="home" />
+							src="<%=request.getContextPath()%>/assets/plugins/images/pixeladmin-text.png" alt="home" />
 					</span>
 					</a>
 				</div>
@@ -79,7 +85,7 @@ String contextPath = request.getContextPath();
 					<li>
 						<div class="dropdown">
 							<a class="profile-pic dropdown-toggle" data-toggle="dropdown"
-								href="#"> <img src="assets/plugins/images/users/varun.jpg"
+								href="#"> <img src="<%=request.getContextPath()%>/assets/plugins/images/users/varun.jpg"
 								alt="user-img" width="36" class="img-circle" /> <b
 								class="hidden-xs">Cybersoft</b>
 							</a>
@@ -87,7 +93,7 @@ String contextPath = request.getContextPath();
 								<li><a href="profile.html">Thông tin cá nhân</a></li>
 								<li><a href="#">Thống kê công việc</a></li>
 								<li class="divider"></li>
-								<li><a href="#">Đăng xuất</a></li>
+								<li><a href="<%= request.getContextPath() %>/logout">Đăng xuất</a></li>
 							</ul>
 						</div>
 					</li>
@@ -101,27 +107,22 @@ String contextPath = request.getContextPath();
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse slimscrollsidebar">
 				<ul class="nav" id="side-menu">
-					<li style="padding: 10px 0 0;"><a href="index.html"
+					<li style="padding: 10px 0 0;"><a href="<%=request.getContextPath()%>/home"
 						class="waves-effect"><i class="fa fa-clock-o fa-fw"
 							aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
-					<li><a href="user-table.html" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/listusers" class="waves-effect"><i
 							class="fa fa-user fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Thành viên</span></a></li>
-					<li><a href="role-table.html" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/roles" class="waves-effect"><i
 							class="fa fa-modx fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Quyền</span></a></li>
-					<li><a href="groupwork.html" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/project" class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Dự án</span></a></li>
-					<li><a href="task.html" class="waves-effect"><i
+					<li><a href="<%=request.getContextPath()%>/listtask" class="waves-effect"><i
 							class="fa fa-table fa-fw" aria-hidden="true"></i><span
 							class="hide-menu">Công việc</span></a></li>
-					<li><a href="blank.html" class="waves-effect"><i
-							class="fa fa-columns fa-fw" aria-hidden="true"></i><span
-							class="hide-menu">Blank Page</span></a></li>
-					<li><a href="404.html" class="waves-effect"><i
-							class="fa fa-info-circle fa-fw" aria-hidden="true"></i><span
-							class="hide-menu">Error 404</span></a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -179,13 +180,11 @@ String contextPath = request.getContextPath();
 
 
 
-													<td>
-														
-														<a href="http://localhost:8080/CRM/update?id=<c:out value='${account.id}' />"
-														class="btn btn-sm btn-danger">edit</a>
-														<a href="http://localhost:8080/CRM/delete?id=<c:out value='${account.id}' />"
-														class="btn btn-sm btn-danger">delete</a>
-														 <a
+													<td><a
+														href="http://localhost:8080/CRM/update?id=<c:out value='${account.id}' />"
+														class="btn btn-sm btn-danger">edit</a> <a
+														href="http://localhost:8080/CRM/delete?id=<c:out value='${account.id}' />"
+														class="btn btn-sm btn-danger">delete</a> <a
 														href="user-details.html" class="btn btn-sm btn-info">Xem</a>
 													</td>
 												</tr>
@@ -210,19 +209,19 @@ String contextPath = request.getContextPath();
 
 	<!-- /#wrapper -->
 	<!-- jQuery -->
-	<script src="assets/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 	<!-- Menu Plugin JavaScript -->
 	<script
-		src="assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+		src="<%=request.getContextPath()%>/assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
 	<!--slimscroll JavaScript -->
-	<script src="assets/js/jquery.slimscroll.js"></script>
-	<script src="assets/js/jquery.dataTables.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery.slimscroll.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/jquery.dataTables.js"></script>
 	<!--Wave Effects -->
-	<script src="assets/js/waves.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/waves.js"></script>
 	<!-- Custom Theme JavaScript -->
-	<script src="assets/js/custom.min.js"></script>
+	<script src="<%=request.getContextPath()%>/assets/js/custom.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('#example').DataTable();

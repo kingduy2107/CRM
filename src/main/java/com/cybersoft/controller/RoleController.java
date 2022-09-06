@@ -22,6 +22,7 @@ import com.cybersoft.pojo.Rolepojo;
 @WebServlet(name = "roles", urlPatterns = { "/roles", "/roles/add" })
 public class RoleController extends HttpServlet {
 	RoleModel roleModel = new RoleModel();
+	
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,6 +32,7 @@ public class RoleController extends HttpServlet {
 			List<Rolepojo> roles = roleModel.getRoles();
 			req.setAttribute("listRoles", roles);
 			req.getRequestDispatcher("/WEB-INF/View/Role/role.jsp").forward(req, resp);
+		
 			break;
 		case "roles/add":
 			req.getRequestDispatcher("/WEB-INF/View/Role/role_add.jsp").forward(req, resp);

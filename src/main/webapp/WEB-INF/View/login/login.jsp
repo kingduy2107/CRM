@@ -25,11 +25,7 @@
 							<label>Mật khẩu</label> <input type="password"
 								class="form-control" name="password">
 						</div>
-						<div class="checkbox">
-							<label> <input type="checkbox" name="remember" value="m">
-								Remember Me
-							</label>
-						</div>
+						
 
 
 

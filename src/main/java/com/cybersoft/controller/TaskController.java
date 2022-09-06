@@ -8,12 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cybersoft.common.Constant;
 import com.cybersoft.model.ProjectModel;
 import com.cybersoft.model.TaskModel;
 import com.cybersoft.model.UserModel;
 import com.cybersoft.pojo.Projectpojo;
+import com.cybersoft.pojo.Rolepojo;
 import com.cybersoft.pojo.Taskpojo;
 import com.cybersoft.pojo.Userpojo;
 
@@ -32,6 +34,8 @@ public class TaskController extends HttpServlet {
 		req.setAttribute("listProject", project);
 		List<Userpojo> users = userModel.getUsers();
 		req.setAttribute("listUsers", users);
+		HttpSession session = req.getSession();
+		Userpojo userpojo = (Userpojo) session.getAttribute("USER_LOGIN");
 
 		switch (path) {
 		case Constant.TASKLIST:
@@ -40,20 +44,32 @@ public class TaskController extends HttpServlet {
 			req.getRequestDispatcher("/WEB-INF/View/task/task.jsp").forward(req, resp);
 			break;
 		case Constant.TASKCREATE:
-			req.getRequestDispatcher("/WEB-INF/View/task/task_add.jsp").forward(req, resp);
+			if (userpojo.getRole_id() == 1 || userpojo.getRole_id() == 2) {
+				req.getRequestDispatcher("/WEB-INF/View/task/task_add.jsp").forward(req, resp);
+			} else {
+				resp.sendRedirect(req.getContextPath() + Constant.ERROR);
+			}
 			break;
 		case Constant.TASKUPDATE:
-			String idStr = req.getParameter("id_task");
-			long id = Long.parseLong(idStr);
-			TaskModel pm = new TaskModel();
-			Taskpojo task = pm.findById(id);
-			req.setAttribute("task", task);
-			req.getRequestDispatcher("/WEB-INF/View/task/task_edit.jsp").forward(req, resp);
+			if (userpojo.getRole_id() == 1 || userpojo.getRole_id() == 2) {
+				String idStr = req.getParameter("id_task");
+				long id = Long.parseLong(idStr);
+				TaskModel pm = new TaskModel();
+				Taskpojo task = pm.findById(id);
+				req.setAttribute("task", task);
+				req.getRequestDispatcher("/WEB-INF/View/task/task_edit.jsp").forward(req, resp);
+			} else {
+				resp.sendRedirect(req.getContextPath() + Constant.ERROR);
+			}
 			break;
 		case Constant.TASKDELETE:
-			int idDelete = Integer.parseInt(req.getParameter("id_task"));
-			taskModel.deleteTask(idDelete);
-			resp.sendRedirect(req.getContextPath() + Constant.TASKLIST);
+			if (userpojo.getRole_id() == 1 || userpojo.getRole_id() == 2) {
+				int idDelete = Integer.parseInt(req.getParameter("id_task"));
+				taskModel.deleteTask(idDelete);
+				resp.sendRedirect(req.getContextPath() + Constant.TASKLIST);
+			} else {
+				resp.sendRedirect(req.getContextPath() + Constant.ERROR);
+			}
 			break;
 		default:
 			break;

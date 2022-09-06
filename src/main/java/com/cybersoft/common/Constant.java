@@ -18,6 +18,8 @@ public class Constant {
 	public final static String PROJECTUPDATE = "/projectupdate";
 	public final static String PROJECTCREATE = "/projectcreate";
 	public final static String PROJECTDELETE = "/projectdelete";
+	public final static String PROJECTVIEW = "/projectview";
+	
 
 	public final static String TASKLIST = "/listtask";
 	public final static String TASKDELETE = "/deleletask";

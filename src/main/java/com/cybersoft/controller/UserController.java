@@ -23,7 +23,6 @@ import com.cybersoft.pojo.Userpojo;
 @WebServlet(name = "user", urlPatterns = { Constant.USERLIST, Constant.USERDELETE, Constant.USERUPDATE,
 		Constant.USERCREATE })
 public class UserController extends HttpServlet {
-	
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,29 +34,44 @@ public class UserController extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		List<Rolepojo> roles = roleModel.getRoles();
 		req.setAttribute("listRoles", roles);
+		HttpSession session = req.getSession();
+		Userpojo userpojo = (Userpojo) session.getAttribute("USER_LOGIN");
 		switch (path) {
 		case Constant.USERLIST:
 			List<Userpojo> users = userModel.getUsers();
-			
 			req.setAttribute("listUsers", users);
 			req.getRequestDispatcher("/WEB-INF/View/Users/user.jsp").forward(req, resp);
 			break;
 		case Constant.USERCREATE:
+			if (userpojo.getRole_id() == 1) {
 			req.getRequestDispatcher("/WEB-INF/View/Users/user_add.jsp").forward(req, resp);
+			}else {
+				resp.sendRedirect(req.getContextPath() + Constant.ERROR);
+			}
+			
 			break;
 		case Constant.USERUPDATE:
-			String idStr = req.getParameter("id");
-			long id = Long.parseLong(idStr);
-			UserModel um = new UserModel();
-			Userpojo user = um.findById(id);
-			System.out.println(id);
-			req.setAttribute("user", user);
-			req.getRequestDispatcher("/WEB-INF/View/Users/user_edit.jsp").forward(req, resp);
+			if (userpojo.getRole_id() == 1) {
+				String idStr = req.getParameter("id");
+				long id = Long.parseLong(idStr);
+				UserModel um = new UserModel();
+				Userpojo user = um.findById(id);
+				System.out.println(id);
+				req.setAttribute("user", user);
+				req.getRequestDispatcher("/WEB-INF/View/Users/user_edit.jsp").forward(req, resp);
+			} else {
+				resp.sendRedirect(req.getContextPath() + Constant.ERROR);
+			}
 			break;
 		case Constant.USERDELETE:
-			int idDelete= Integer.parseInt(req.getParameter("id"));
-			userModel.deleteUser(idDelete);
-			resp.sendRedirect(req.getContextPath() + "/listusers");
+
+			if (userpojo.getRole_id() == 1) {
+				int idDelete = Integer.parseInt(req.getParameter("id"));
+				userModel.deleteUser(idDelete);
+				resp.sendRedirect(req.getContextPath() + "/listusers");
+			} else {
+				resp.sendRedirect(req.getContextPath() + Constant.ERROR);
+			}
 			break;
 		default:
 			break;
@@ -92,6 +106,7 @@ public class UserController extends HttpServlet {
 			userpojo.setRole_id(role_id);
 			UserModel userinsert = new UserModel();
 			userinsert.insertUsers(userpojo);
+			req.setAttribute("message", "Them moi that bai");
 			req.getRequestDispatcher("/WEB-INF/View/Users/user_add.jsp").forward(req, resp);
 			break;
 		case Constant.USERUPDATE:
@@ -105,8 +120,14 @@ public class UserController extends HttpServlet {
 			long id = Long.parseLong(req.getParameter("id"));
 			useredit.setId(id);
 			UserModel UM = new UserModel();
-			UM.updateUser(useredit);
-			req.getRequestDispatcher("/WEB-INF/View/Users/user_edit.jsp").forward(req, resp);
+			if (UM.updateUser(useredit)) {
+				req.setAttribute("message", "Sửa đổi thất bại!");
+				req.getRequestDispatcher("/WEB-INF/View/Users/user_edit.jsp").forward(req, resp);
+			} else {
+
+				resp.sendRedirect(req.getContextPath() + Constant.USERLIST);
+			}
+
 			break;
 		default:
 			break;

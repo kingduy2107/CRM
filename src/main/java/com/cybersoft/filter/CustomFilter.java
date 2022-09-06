@@ -12,9 +12,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cybersoft.common.Constant;
 import com.cybersoft.common.CookieFilter;
+import com.cybersoft.pojo.Userpojo;
 
 @WebFilter(urlPatterns = { "*" })
 public class CustomFilter implements Filter {
@@ -22,35 +24,25 @@ public class CustomFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-//		System.out.println("kiem tra filter");
+		request.setCharacterEncoding("UTF-8");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 
-		Cookie[] cookies = req.getCookies();
-		boolean isExistUser = false;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals(CookieFilter.COOKIES_USER)) {
-				isExistUser = true;
+		String action = req.getServletPath();
+		if(!action.equals("/login")) {
+			// CHECK SESSION
+			HttpSession session = req.getSession();
+			// KIỂM TRA NẾU CHƯA ĐĂNG NHẬP => QUAY VỀ TRANG ĐĂNG NHẬP KIỂM TRA THÔNG TIN
+			if (session.getAttribute("USER_LOGIN") == null) {
+				resp.sendRedirect(req.getContextPath() + "/login");
+				return;
 			}
 		}
-		if (isExistUser) {
-			resp.sendRedirect(req.getContextPath() + Constant.HOME);
-		} else {
-			chain.doFilter(req, resp);
-		}
-	}
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
+		chain.doFilter(request, response);
 
 	}
+		
+		
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-
-	}
 
 }
